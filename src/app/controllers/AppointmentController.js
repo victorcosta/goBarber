@@ -155,7 +155,7 @@ class AppointmentController {
 
     await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Agendamento Caneldo',
+      subject: 'Agendamento Cancelado',
       text: 'Você tem um novo cancelamento'
     });
 
