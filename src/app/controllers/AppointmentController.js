@@ -47,6 +47,15 @@ class AppointmentController {
 
     const { provider_id, date } = req.body;
     /**
+     * Check if provider_id and userId is the same
+     */
+
+    if (provider_id === req.userId) {
+      return res.status(401).json({
+        error: 'provider should not schedule appointment for himself'
+      });
+    }
+    /**
      * Check if provider_id is a valid provider
      */
 
