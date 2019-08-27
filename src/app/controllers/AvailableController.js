@@ -1,3 +1,4 @@
+import Op from 'sequelize';
 import {
   startOfDay,
   endOfDay,
@@ -7,7 +8,6 @@ import {
   format,
   isAfter
 } from 'date-fns';
-import Op from 'sequelize';
 
 import Appointment from '../models/Appointment';
 
@@ -28,7 +28,8 @@ class AvailableController {
         date: {
           [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)]
         }
-      }
+      },
+      order: ['date']
     });
 
     const schedule = [
@@ -55,7 +56,7 @@ class AvailableController {
       );
       return {
         time,
-        value: format(value, "yyyy-MM-dd'T'HH:mm:ss:xxx"),
+        value: format(value, "yyyy-MM-dd'T'HH:mm:ssxxx"),
         availabe:
           isAfter(value, new Date()) &&
           !appointments.find(a => format(a.date, 'HH:mm') === time)
